@@ -1004,3 +1004,27 @@ static_prefix:
 
   hint: /lib/hint/
 
+
+# html_minifier
+html_minifier:  
+  collapseBooleanAttributes: true
+  collapseWhitespace: true
+  removeEmptyAttributes: true
+  removeScriptTypeAttributes: true
+  removeStyleLinkTypeAttributes: true
+  minifyJS: false
+  minifyCSS: true
+
+# uglify
+uglify:
+  mangle: true
+  output:
+  compress:
+  exclude:
+    - '*.min.js'
+
+# css_minifier
+clean_css:
+  exclude:
+    - ' *.min.css'
+

@@ -17,3 +17,5 @@ date: 2021-09-28 21:46:02
 
 当删除阿里云域名解析相关记录后，访问2017zhangyuxuan.github.io 依然会跳转到注册的域名上kingofdark.top，然后报错HTTP 502
 
+[进阶修改版](https://github.com/qixa/hexo-theme-fluid-mod#%E8%AF%A6%E7%BB%86%E4%BF%AE%E6%94%B9%E4%BF%A1%E6%81%AF)
+
