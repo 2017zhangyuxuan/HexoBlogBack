@@ -1,15 +1,8 @@
 ---
 title: Hello World
 date: 2021-09-25 21:46:02
-sticky: 100
-tags: 
-- 新的
-- 旧的
 categories:
-- C1
-- C2
-- [C3,C4]
-- [C3,C5]
+- 其他
 ---
 
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).

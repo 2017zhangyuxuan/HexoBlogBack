@@ -1,0 +1,320 @@
+---
+title: 【99%环境搭建系列】云计算管理平台Devstack安装
+date: 2021-10-08 19:32:10
+index_img: /img/devstack/index_img.jpeg
+excerpt: 99%概率完成环境搭建，让天下没有搭建不了的环境！本期带来的是云计算管理平台Devstack的安装教程。
+categories:
+- 计算机知识
+tags: 
+- devstack
+---
+
+
+
+# 引言
+
+<p class='note note-success'>99%概率完成环境搭建，让天下没有搭建不了的环境！ </p>
+
+openstack作为开源的云计算管理平台，可以让我们体验云计算技术的各种组件和功能，然而官网繁琐的配置教程令人望而却步。好在devstack提供了一站式安装服务，~~只需简单执行几个命令即可完成安装~~（根本不是这样好吗！）。不过经过我的百般测试，只要安装教程里的方式执行命令，成功概率99%！
+
+![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110082112035.png)
+
+# 安装环境
+
+这里说一下我个人的安装环境
+
+* PC操作系统：win10
+* VMware Workstation版本：16.x Pro
+* Ubuntu版本：18.04 
+
+# 安装步骤
+
+0. **简要说明**
+
+
+
+<p class='note note-primary'>ubuntu操作系统在虚拟机的安装这里不再演示，假设你已经完成了ubuntu18.04的安装，然后继续；<br>在~/ 目录下，依次执行命令即可，没有特殊说明，不用执行别的多余命令</p>
+
+
+
+1. **设置静态IP（可选）**
+
+> 说明：这一步是可选的，之所以设置成静态IP，是为了方便后面的配置，以及排除IP变动的原因导致的种种意外；不过不进行配置的话，应该也是ok的，只要保证整个安装以及使用过程IP不会改变
+>
+> 参考网站：[ubuntu配置静态ip](https://www.cnblogs.com/yaohong/p/11593989.html)       [VMware配置静态ip](https://blog.csdn.net/zh2508/article/details/85250360)
+
+
+
+首先给机器设置静态ip，修改`/etc/netplan`目录下对应的文件，按如下文件进行配置。
+
+<p class='note note-info'>
+  三个注意点：<br>
+  1. 注意配置里的"ens32" 根据自己的机器进行改动，可能是"ens33"，可以通过命令 ip addr 来进行查看 <br>
+  2. 这里复制的话，注意复制后的结果是否一致，可能需要自己手动输入一下，这样的话要严格注意格式，冒号后面需要一个空格，换行缩进是4个空格<br>
+  3. 设置的ip和网关要在同一个网段上，记住这里填入的ip，需要用在下面的配置中
+</p>
+
+
+
+
+```
+version: 2
+renderer: NetworkManager
+network:
+​    ethernets:
+​        ens32:
+​            dhcp4: no
+​            addresses: [192.168.17.10/24]
+​            optional: true
+​            gateway4: 192.168.17.2
+​            nameservers:
+​                    addresses: [192.168.17.1,192.168.17.2] # 这里DNS的修改，是因为我配置了上面VMware配置静态ip
+```
+
+然后执行`sudo netplan apply`，让配置生效，再通过`ip addr`查看是否生效，已经`ping`命令查看网络是否连通
+
+2. **切换apt源**
+
+切换apt源的目的是为了加快下载安装的速度
+
+```shell
+ sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+ sudo vim /etc/apt/sources.list
+```
+
+这里配置用的是阿里云的镜像，如果之后因为网络的问题可以尝试换下别的源，不过我测试使用的都是阿里云
+
+```shell
+# 注意ubuntu版本号对应不同的代号，这里用的是18.04，对应bionic
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+```
+
+3. **更换pip源**
+
+也是为了加快下载安装依赖的速度
+
+```sh
+ mkdir .pip
+ vim .pip/pip.conf
+```
+
+配置如下所示，用的是豆瓣的镜像
+
+```shell
+[global]
+index-url = http://pypi.douban.com/simple/
+trusted-host = pypi.douban.com
+```
+
+4. **更新并安装包**
+
+依次执行下列命令，主要是更新安装相关依赖，下载pip管理依赖工具
+
+```shell
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install git
+sudo apt-get install python-pip
+sudo pip install --upgrade pip
+sudo pip install -U os-testr  # sudo pip install wcwidth 可选，如果这一步出了wcwidth相关的error的话
+```
+
+
+
+5. **设置时区同步**
+
+```shell
+sudo apt-get install ntpdate // 安装时间同步工具
+sudo ntpdate cn.pool.ntp.org // 与网络服务器同步时间
+date // 查看时间是否已经同步
+```
+
+
+
+6. **下载devstack**
+
+```shell
+# git clone https://github.com/openstack/devstack.git -b stable/queens 
+# 推荐使用opendev.org官网的wallby这个分支，github上对应的queens这个分支尝试过有问题解决不了
+git clone https://opendev.org/openstack/devstack.git -b stable/wallaby 
+```
+
+
+
+7. **创建stack用户**
+
+```shell
+sudo devstack/tools/create-stack-user.sh
+```
+
+
+
+8. **移动并设置文件夹权限**
+
+```shell
+sudo mv devstack /opt/stack
+sudo chown -R stack:stack /opt/stack
+sudo chown stack:stack /opt/stack
+```
+
+
+
+9. **切换到stack用户**
+
+```shell
+sudo su - stack
+```
+
+
+
+10. **创建local.conf配置文件**
+
+执行下列命令
+
+```shell
+cd devstack
+vim local.conf
+```
+
+配置文件内容如下：
+
+```shell
+[[local|localrc]]
+# Define images to be automatically downloaded during the DevStack built process.
+DOWNLOAD_DEFAULT_IMAGES=False
+IMAGE_URLS="http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img"
+
+# use TryStack git mirror
+GIT_BASE=http://git.trystack.cn
+NOVNC_REPO=http://git.trystack.cn/kanaka/noVNC.git
+SPICE_REPO=http://git.trystack.cn/git/spice/sice-html5.git
+
+# Credentials
+[[local|localrc]]
+ADMIN_PASSWORD=admin
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+# Host IP - get your Server/VM IP address from ip addr command
+HOST_IP=192.168.10.112 # ifconfig获取本机ip
+enable_service placement-api
+enable_service placement-client
+```
+
+
+
+11. **提前下载依赖包** 
+
+因为是从github上连接下载依赖包，可能由于网络不好的问题，直接安装的话可能中途会因为下载失败导致安装失败，所以这里提前下载；如果下载失败了，就多执行几次，肯定是可以的
+
+```shell
+cd files/
+wget -c https://github.com/coreos/etcd/releases/download/v3.1.10/etcd-v3.1.10-linux-amd64.tar.gz
+wget -c https://github.com/coreos/etcd/releases/download/v3.1.7/etcd-v3.1.7-linux-amd64.tar.gz
+wget -c https://github.com/etcd-io/etcd/releases/download/v3.3.12/etcd-v3.3.12-linux-amd64.tar.gz
+```
+
+
+
+12. **安装simplejson**
+
+经过测试，之后安装的过程中可能会报错simplejson安装失败，所以这里提前进行安装
+
+```shell
+# sudo apt-get purge python3-simplejson 清楚之前的软件包和配置
+sudo apt-get install python3-simplejson
+# sudo apt-get install python-simplejson # 上面的命令不行可以试下这个
+```
+
+
+
+13. **修改pip安装配置**
+
+经过测试，之后安装的过程可能会出现如下的错误，所以这里提前进行修改
+
+![pip下载报错](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110082049771.png)
+
+对应的目录 `devstack/inc/python file 198 line`
+
+ 源代码 `$cmd_pip $upgrade` 
+
+ 修改成 `$cmd_pip $upgrade --ignore-installed`
+
+
+
+14. **修改权限**
+
+这里再次执行权限修改的命令，是为了确保安装过程中权限没有问题
+
+```shell
+sudo chown -R stack:stack /opt/stack
+sudo chown stack:stack /opt/stack
+sudo chown -R stack:stack /opt/stack/devstack
+```
+
+
+
+15. **开始安装**
+
+```shell
+ cd ..
+ FORCE=yes ./stack.sh
+```
+
+可能因为网络的原因，中途会连接不上github，导致安装失败，这样就需要重新尝试，先清理下环境再安装，多尝试几次应该都会成功的，不过确保网络质量也比较重要。
+
+如果是因为下载github上某个依赖包导致的失败，可以事先安装好对应的依赖，使用pip命令下载即可
+
+```shell
+./unstack.sh
+./clean.sh
+FORCE=yes ./stack.sh
+```
+
+
+
+16. **见证奇迹的时刻**
+
+当你看到如下信息的时候，恭喜你，完成安装~
+
+![成功截图](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110081954141.(null))
+
+17. **openstack界面展示**
+
+具体如何使用openstack，这里就不再详细演示，openstack功能大家就自行地快乐玩耍吧~
+
+![openstack界面展示](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110081954271.(null))
+
+
+
+# 结语
+
+到此为止，devstack的安装教程就到此结束了，如果安装上面的步骤成功了，恭喜你我的朋友！
+
+
+<div align='center'><img src='https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110082121023.jpeg' width='30%' height='30%' > </div>
+
+当然如果出现了别的问题无法解决的话，可以评论留下你的问题，或者与我联系。
+
+---
+
+如果真的山穷水尽了的话，microstack 官网教程值得你的拥有~
+
+![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110082124003.png)
+
+# 参考
+
+https://blog.csdn.net/hunjiancuo5340/article/details/85005995
+
+https://blog.csdn.net/u013184378/article/details/84973629
+
+http://www.cnblogs.com/lianshuiwuyi/p/10955041.html
+
