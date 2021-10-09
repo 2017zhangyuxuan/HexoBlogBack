@@ -421,7 +421,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/yourname.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname.webp
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -493,7 +493,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/yourname6.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname6.webp
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -786,7 +786,7 @@ cusdis:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/yourname2.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname2.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -798,7 +798,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/yourname3.jpeg
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname3.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -828,7 +828,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/yourname4.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname4.webp
   banner_img_height: 80
   banner_mask_alpha: 0.3
   subtitle:
@@ -846,7 +846,7 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/yourname7.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname7.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -870,7 +870,7 @@ about:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/yourname6.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname6.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -881,7 +881,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/404.jpeg
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/404.webp
   banner_img_height: 100
   banner_mask_alpha: 0.3
   subtitle: "你要找的页面被黑洞吞噬啦(=・ω・=)"
@@ -893,7 +893,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/yourname5.png
+  banner_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/yourname5.webp
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
