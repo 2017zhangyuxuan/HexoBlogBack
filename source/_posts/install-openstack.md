@@ -78,8 +78,9 @@ network:
 切换apt源的目的是为了加快下载安装的速度
 
 ```shell
+ sudo apt-get install vim #先安装下vim
  sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
- sudo vim /etc/apt/sources.list
+ sudo vim /etc/apt/sources.list # 如果vim还没有安装，改用 vi 复制下就行
 ```
 
 这里配置用的是阿里云的镜像，如果之后因为网络的问题可以尝试换下别的源，不过我测试使用的都是阿里云
