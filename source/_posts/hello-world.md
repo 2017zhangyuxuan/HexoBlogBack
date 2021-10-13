@@ -59,6 +59,10 @@ hexo-theme-fluid/source/css/main.styl 路径下添加 (不过好像只有本地�
 
 
 
+parallel desktop上 ubuntu20.04 配置国内镜像源无法生效，百度用的改DNS的方法都不行，还是汇报Failed Fetch的错误，找不到对应的IP（这个坑以后再看看吧，或者有那个好心人帮忙看看）
+
+难道说是还没有arm的镜像吗。。。
+
 
 
 
