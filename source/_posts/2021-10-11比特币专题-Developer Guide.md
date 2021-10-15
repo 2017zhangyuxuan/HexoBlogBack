@@ -1,7 +1,11 @@
 ---
 title: 【比特币专题】Developer Guide导读
 date: 2021-10-11 13:49:25
-tags:
+index_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/bitcoin5.jpeg
+categories: 
+- [计算机知识,比特币]
+tags: 
+- Bitcoin
 ---
 
 
