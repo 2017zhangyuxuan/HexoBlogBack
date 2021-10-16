@@ -1,6 +1,7 @@
 ---
 title: 【比特币专题】Developer Guide导读
 date: 2021-10-11 13:49:25
+excerpt: 本期带来的是比特币官网Developer Guide的导读，相比于白皮书，Developer Guide对比特币中的运行机制和技术细节有更详细的介绍。
 index_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/bitcoin5.jpeg
 categories: 
 - [计算机知识,比特币]
