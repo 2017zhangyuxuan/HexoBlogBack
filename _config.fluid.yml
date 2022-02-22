@@ -215,7 +215,7 @@ web_analytics:  # 网页访问统计
   # 百度统计的 Key，值需要获取下方链接中 `hm.js?` 后边的字符串
   # Baidu analytics, get the string behind `hm.js?`
   # See: https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376
-  baidu: 
+  baidu: 41ea7ec25546b456fd8c769b77c5f7b8 
 
   # Google 统计的 Tracking ID
   # Google analytics, set Tracking ID
@@ -383,6 +383,9 @@ footer:
     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
     <i class="iconfont icon-love"></i>
     <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </br>
+    <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">浙ICP备2022004380号-1</a>
+
   '
 
   # 展示网站的 PV、UV 统计数
@@ -405,13 +408,7 @@ footer:
   beian:
     enable: false
     # ICP证号
-    icp_text: 京ICP证123456号
-    # 公安备案号，不填则只显示ICP
-    police_text: 京公网安备12345678号
-    # 公安备案的编号，用于URL跳转查询
-    police_code: 12345678
-    # 公安备案的图片. 为空时不显示备案图片
-    police_icon: /img/police_beian.png
+    icp_text: 浙ICP备2022004380号-1
 
 
 #---------------------------
@@ -603,7 +600,7 @@ post:
     enable: true
     # 脚注的节标题，也可以在 front-matter 中通过 `footnote: <h2>Reference</h2>` 这种形式修改单独页面的 header
     # The section title of the footnote, you can also modify the header of a single page in the form of `footnote: <h2>Reference</h2>` in front-matter
-    header: '<h2>备注/参考</h2>'
+    header: '<h1>备注/参考</h1>'
 
   # 数学公式，开启之前需要更换 Markdown 渲染器，否则复杂公式会有兼容问题，具体请见：https://hexo.fluid-dev.com/docs/guide/##latex-数学公式
   # Mathematical formula. If enable, you need to change the Markdown renderer, see: https://hexo.fluid-dev.com/docs/en/guide/#math
