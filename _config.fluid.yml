@@ -384,7 +384,6 @@ footer:
     <i class="iconfont icon-love"></i>
     <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
     </br>
-    <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">浙ICP备2022004380号-1</a>
 
   '
 
@@ -406,9 +405,15 @@ footer:
   # 国内大陆服务器的备案信息
   # For Chinese mainland website policy, other areas keep disable
   beian:
-    enable: false
+    enable: true
     # ICP证号
     icp_text: 浙ICP备2022004380号-1
+    # 公安备案号，不填则只显示ICP
+    police_text: 京公网安备11011502005551号
+    # 公安备案的编号，用于URL跳转查询
+    police_code: 11011502005551
+    # 公安备案的图片. 为空时不显示备案图片
+    police_icon: /img/beian.png
 
 
 #---------------------------
