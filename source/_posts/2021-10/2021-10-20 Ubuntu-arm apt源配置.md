@@ -4,7 +4,7 @@ date: 2021-10-20 15:32:24
 excerpt: 本文主要介绍如何在M1 MacBook Air上使用Ubuntu虚拟机配置apt源。
 index_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/ubuntu.jpeg
 categories: 
-- [计算机知识,虚拟机]
+- [计算机知识,Linux]
 tags: 
 - Ubuntu
 ---
