@@ -2,7 +2,7 @@
 title: 【比特币专题02】Developer Guide导读
 date: 2021-10-11 13:49:25
 excerpt: 本期带来的是比特币官网Developer Guide的导读，相比于白皮书，Developer Guide对比特币中的运行机制和技术细节有更详细的介绍。
-index_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/bitcoin5.jpeg
+index_img: https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/hexo_img/bitcoin5.jpeg
 categories: 
 - [计算机知识,比特币]
 tags: 
@@ -67,7 +67,7 @@ tags:
   - Bob要使用Alice的支付给他的UTXO，Alice创建转账的Tx交易时需要用到Bob的公钥，因此Bob的公私钥是提前生成好的，使用ECDSA椭圆签名曲线生成；然后Bob将公钥hash，使用Base58编码地址版本编号、公钥哈希、错误校验码，然后传给Alice，Alice可以进行解码得到公钥hash，并添加到交易中，作为output中的pubkey script，来标识输出到哪个地址；
   - 而当Bob需要使用这份UTXO，发布交易时，需要构造input，引用Alice创造的交易TX（即TXID和对应的output index number），还需要包含一个签名脚本(signature script），这个签名脚本用来验证这笔输入的确是Bob所有。这个签名脚本里包含了Bob的公钥和签名，而签名的数据包含了Alice创造的交易TXID和index number，输出给其他用户的pubkey script，输出的余额。而输出output，正如上述所说，包含一个隐含的index number，以聪为单位的余额量，一个公钥脚本。
 
-![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110111350637.(null))
+![](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110111350637.(null))
 
 - **P2SH**：提出P2SH的目的主要是因为在之前的交易中，都是由发送者负责指定赎出币的条件。这样的话，如果赎出币的过程比较复杂，譬如要使用MULTISIG，那么对付钱的用户，也就是买家，就不够友好。使用P2SH的方式，可以由币的接收方设计好执行的脚本，然后不论脚本多么复杂，发送方只需要将币发送到一个20字节的哈希地址就行。
   - 有关资料参考：[P2SH机制](https://zhuanlan.zhihu.com/p/46072343)
@@ -88,7 +88,7 @@ tags:
 - 结合之前的P2SH方式中，对multisig有了更进一步的理解。A向B买东西，A使用P2SH，把钱支付到一个脚本地址并使用2-of-3签名（此时比特币只属于这个脚本地址），当B发货了，A收到确认没问题了，那么使用A和B的签名就可以把脚本地址的UTXO转给B的地址。如何A反悔了，不肯提供签名，那么B可以找仲裁机构C，使用B和C的签名也能将脚本地址的UTXO转给B；同理B如果没有发货，A也能找C把钱转回给A。也就是说，相比P2PKH直接转账方式，P2SH相当于多了一步验证等待，验证成功了再转账到用户地址。
 - Micropayment Channel 微支付通道
 
-![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110111350785.(null))
+![](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110111350785.(null))
 
 - 其工作原理大体上可以这样描述：A给B打工，B首先使用A和B的签名，使用P2SH的方式，发送一定金额到脚本地址，并将该交易立即传播到比特币网络上；然后B创造第二个交易，并用到刚刚A的签名，其输入是第一个交易的脚本地址，输出是B的地址（相当于全额返回给B），然后给这个交易加上Locktime，比如说一天后才能广播这个交易。然后A给B工作一部分内容后，A要求B先支付这份工作量的薪水，那么B就创建一份新的交易，从原来全额给B变成分出一部分金额给A，这个新的交易拷贝给A，这样A就可以广播这个新的交易从而获得薪水。（实际上A只需要在locktime过期前，广播最后版本的交易即可）
 - 为什么采用这样的方式呢，因为A诉求是及时支付薪水，但是因为量小，B不能每次都立即创造一个交易即刻支付，这样的交易费的成本太高了。所以利用这样的方式，既确保了A的薪水是及时得到确认的，又可以使得只需一个交易就一次性支付薪水
@@ -96,7 +96,7 @@ tags:
 
 - Coinjoin混币交易，增加隐匿性，保护隐私，当和其他输入输出混杂在一起时，别人就难以追踪输出记录了
 
-![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110111350075.(null))
+![](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110111350075.(null))
 
 
 
@@ -152,11 +152,11 @@ tags:
 - 现在有两种挖矿方式：单独挖矿和矿池挖矿
   - 单独挖矿：bitcoind来获取P2P网络上的交易，挖矿软件通过RPC方法来获取列表，并构造一个Block模板，然后将对应的block header发送给ASIC进行运算。挖矿软件会将一个nonce值填入币基交易的的字段中，获得新的Merkle root的hash值，然后将新的Block header发送个ASIC。如果ASIC计算生成的block header hash小于预定的阈值，则表明添加的nonce值符合条件，将block header返回给挖矿软件，挖矿软件根据返回的block header更新block，最后将完整的block 返回给bitcoind，bitcoind再向网络传播区块
 
-![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110111350617.(null))
+![](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110111350617.(null))
 
 - 矿池挖矿：工作流跟单独挖矿类似。不同的是，矿池设定的阈值要比网络上设定的阈值小很多（降低了难度），因此各个矿工通过挖矿软件返回给矿池的block hearder中，有很多是满足矿池的阈值但不满足网络的阈值，这些返回的block header相当于是份额，证明了矿工的工作量；同时总会有几率产生同时满足两个阈值的block header，矿池将满足网络阈值条件的block发送给bitcoind，从而获得奖励。然后矿池根据矿工贡献的份额，平均分发奖励。举个具体例子就是，矿工们总共返回了100个满足矿池条件的block header（相当于有100份额），只有1个满足网络阈值，那么每份额的奖励就是总奖励的1/100，矿工根据自己的份额获得相应奖励。
 
-![](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110111350905.(null))
+![](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110111350905.(null))
 
 - 还介绍了三种挖矿软件获取Block的RPC
   - getwork RPC：当前Bitcoin Core已经废弃，这个方法直接为矿工构造好block header，因此矿工可能需要调用成百上千次RPC

@@ -2,7 +2,7 @@
 title: Ubuntu-arm apt源配置
 date: 2021-10-20 15:32:24
 excerpt: 本文主要介绍如何在M1 MacBook Air上使用Ubuntu虚拟机配置apt源。
-index_img: https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//hexo_img/ubuntu.jpeg
+index_img: https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/hexo_img/ubuntu.jpeg
 categories: 
 - [计算机知识,Linux]
 tags: 
@@ -31,7 +31,7 @@ https://blog.csdn.net/p1279030826/article/details/111640455
 
 但是然后呢，满怀期待执行`sudo apt-get update` 却报错了。。。
 
-![apt-get update报错 ](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110201532536.png)
+![apt-get update报错 ](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110201532536.png)
 
 当时很郁闷啊，因为之前在windows虚拟机上配置的时候都好使的，怎么到你这就拉胯了呢？
 
@@ -62,7 +62,7 @@ deb-src http://mirrors.aliyun.com/ubuntu-ports/ focal-backports main restricted 
 
 换源之后执行成功，nice！
 
-![apt-get update成功](https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110201533176.png)
+![apt-get update成功](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110201533176.png)
 
 
 
@@ -70,5 +70,5 @@ deb-src http://mirrors.aliyun.com/ubuntu-ports/ focal-backports main restricted 
 
 总的来说踩了个坑，而究其原因，还是自己对这个apt配置参数没有理解到位，仅仅只是照猫画虎，复制教程，而没有领会其中的真意。同时对这个系统架构arm 和 x86的差异没有深刻认识，不同架构之间软件肯定是需要进行适配的，没有很清楚的认识到这一点。所以呢，学海无涯，我还差得远呢~
 <div align='center'>
-<img src="https://cdn.jsdelivr.net/gh/2017zhangyuxuan/picture_backend@master//img/202110251023808.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg" width="50%" height="50%" align="middle" >
+<img src="https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202110251023808.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg" width="50%" height="50%" align="middle" >
 </div>
