@@ -28,7 +28,7 @@
     "hexo-uglify": "^2.0.0",
     "meow": "^10.1.1",
     "trim-newlines": "^4.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "imagemin-pngquant": "^5.0.1",
