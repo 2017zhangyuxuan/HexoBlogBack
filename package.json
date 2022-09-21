@@ -32,6 +32,6 @@
   },
   "devDependencies": {
     "imagemin-pngquant": "^5.0.1",
-    "pngquant": "^4.0.0"
+    "pngquant": "^4.1.0"
   }
 }
