@@ -27,7 +27,7 @@
     "hexo-theme-landscape": "^0.0.3",
     "hexo-uglify": "^2.0.0",
     "meow": "^10.1.1",
-    "trim-newlines": "^4.0.2",
+    "trim-newlines": "^5.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
