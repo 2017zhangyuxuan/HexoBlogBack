@@ -128,6 +128,56 @@ function(Foo*), pass ff*, after exec, ff num : 8
 
 ![placeholders](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202311271133508.png)
 
+---
+
+对于 std::bind 参数的拷贝，还值得注意的是，在 bind 的时候拷贝的是实参，在真正调用执行时才去拷贝形参，所以当拷贝指针的值时候需要特别注意对应的生命周期。
+
+```C++
+#include <iostream>
+#include <functional>
+using namespace std;
+
+class A{
+public:
+    A() {
+        cout << "construct A " << endl;
+    }
+    A(const A& a) {
+        cout << "construct A from a" << endl;
+    }
+};
+class B{
+public:
+    B() {
+        cout << "construct B " << endl;
+    }
+    B(const A& a)  {
+        cout << "construct B from A" << endl;
+    }
+};
+void test(B b) {
+    cout <<"do test" << endl;
+}
+int main() {
+    A a;
+    cout << "ready to do bind" << endl;
+    auto f = std::bind(test, a);
+    cout << "ready to do test" << endl;
+    f();
+}
+
+// 输出结果
+// construct A 
+// ready to do bind
+// construct A from a
+// ready to do test
+// construct B from A
+// do test
+```
+
+
+
+
 3. 对于 `std::function`，可以看到对应的 `operator()`接受参数的类型是 `Args...` 而不是 mem_fn 的 `Args&&...`，注意到这两者细微的差别了么？这里其实就隐含说明传入的参数都是拷贝传入的，所以 `f7` 执行后并不会影响 `ff` 对象。
 
 ![std::function operator()](https://kingofdark-blog.oss-cn-beijing.aliyuncs.com/picture_backend/picture_backend/img/202311271133587.png)
