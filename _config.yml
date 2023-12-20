@@ -107,6 +107,6 @@ deploy:
   repository: git@github.com:2017zhangyuxuan/2017zhangyuxuan.github.io.git
   branch: master
 - type: git
-  repository: zyx@47.94.161.235:/home/zyx/blog.git
+  repository: zyx@39.98.203.66:/home/zyx/git/blog.git
   branch: master    
 
