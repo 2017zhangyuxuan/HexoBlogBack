@@ -728,20 +728,17 @@ valine:
 # Derived from Valine, with self-hosted service and new features
 # See: https://waline.js.org/
 waline:
-  serverURL: 'https://blog-api-cwpbgt9h8-2017zhangyuxuan.vercel.app'
+  serverURL: 'https://waline-comment-ten-blush.vercel.app/'
   path: window.location.pathname
-  placeholder: '期待地搓搓手~'
   meta: ['nick', 'mail', 'link']
   requiredMeta: ['nick']
   lang: 'zh-CN'
-  emoji: ['https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo']
+  emoji: ['https://unpkg.com/@waline/emojis@1.2.0/bmoji']
   dark: 'html[data-user-color-scheme="dark"]'
-  avatar: 'mp'
-  avatarCDN: 'https://seccdn.libravatar.org/avatar/'
-  avatarForce: false
   wordLimit: 0
   pageSize: 10
   highlight: true
+
 # 畅言 Changyan
 # 基于第三方的服务
 # Based on third-party service, insufficient support for regions outside China
@@ -999,7 +996,7 @@ static_prefix:
 
   valine: https://lib.baomitu.com/valine/1.4.18/
 
-  waline: https://lib.baomitu.com/waline/2.5.1/
+  waline: https://lib.baomitu.com/waline/2.15.8/
 
   gitalk: https://lib.baomitu.com/gitalk/1.7.2/
 
